@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Convene</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+</head>
+
+<body style="height: 100%; position: relative;">
+    <header class="navbar-fixed">
+        <ul id="dropdown1" class="dropdown-content">
+            <li> <a href="{% url 'signup' %}"> Sign Up</a> </li>
+            <li> <a href="{% url 'login' %}"> Login w/ django</a> </li>
+            <li class="divider"></li>
+            <li><a href="{% url 'social:begin' 'google-oauth2' %}">
+                    Login w/ google
+                </a>
+            </li>
+        </ul>
+        <ul id="dropdown2" class="dropdown-content">
+            <li> <a href="{% url 'logout' %}"> Logout </a> </li>
+        </ul>
+        <nav>
+            <div class="nav-wrapper" style="background-color: #BED7E8;">
+                <ul>
+                    <li><a href="/" class="left brand-logo">&nbsp;&nbsp;Convene</a></li>
+                </ul>
+                <ul class="right hide-on-med-and-down">
+
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'events_create'%}">Add Event</a></li>
+                    <li><a href="{% url 'user'%}">Profile</a></li>
+                    <!-- Dropdown Trigger -->
+                    <li><a class="dropdown-button" href="#!" data-activates="dropdown2">Log Out<i
+                                class="material-icons right">arrow_drop_down</i></a></li>
+                    {% else %}
+                    <li><a href="{% url 'landing'%}">Home</a></li>
+                    <li><a href="{% url 'events'%}">View Events</a></li>
+                    <!-- Dropdown Trigger -->
+                    <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Log In<i
+                                class="material-icons right">arrow_drop_down</i></a></li>
+                </ul>
+                {% endif %}
+            </div>
+        </nav>
+    </header>
+    <main class="container" style=" min-height: 94vh;
+    overflow: hidden;
+    display: block;
+    padding-bottom: 100px;">
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer class="page-footer" style=" position: absolute;
+    padding-bottom: 26px; bottom: 0;width: 100%; background-color: rgba(0,0,0,.6
+    );
+">
+        <div class="right">All Rights Reserved, &copy; 2019 Convene &nbsp;</div>
+    </footer>
+
+    <script>
+        $(".button-collapse").sideNav();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>This is a users profile page</h1>
+<h3>Username: {{ user.username }}</h3>
+
+<h3>User Full name: {{ user.get_full_name }}</h3>
+
+<h3>User Group: {{ user.groups.all.0 }}</h3>
+
+<h3>Email: {{ user.email }}</h3>
+<h3>Id: {{ user.id }}</h3>
+
+<h3>Session Started at: {{ user.last_login }}</h3>
+
+{% for event in events %}
+<div class=" card-stacked">
+    <div class="card-content">
+        <p>Title: {{ event.title }}</p>
+        <p>Date: {{ event.date }}</p>
+        <p>Time: {{ event.time }}</p>
+        <p>Location: {{ event.location }}</p>
+        <p class="truncate">Description: {{ event.description }}</p>
+        <div class="card-action">
+            <a class="btn waves-effect waves-green blue right" href="{% url 'events_detail' event.id %}"><i
+                    class="material-icons center-align">visibility</i></a>
+        </div>
+    </div>
+</div>
+{%endfor%}
+
+
+{% endblock %}
