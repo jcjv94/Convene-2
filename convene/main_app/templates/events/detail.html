@@ -52,19 +52,21 @@
                     <form data-toggle="validator" id="invitation-details" class="form-horizontal"
                         action="{% url 'events_rsvp' event.id %}" method="post">
                         {%csrf_token%}
+                        <button class="btn waves-effect waves-light" type="submit" value="event rsvp" name="action">
+                            <i class="material-icons">play_for_work</i>
+                        </button>
+                        <br>
                         <label class="radio-inline">
                             <input class="attending-radio" type="radio" name="{{ attending_label }}" value="yes"
                                 {% if guest.is_attending %}checked="checked" {% endif %} required> Click here to RSVP
                         </label>
-                        <br>
+                        
                         <label class="radio-inline">
                             <input class="attending-radio" type="radio" name="{{ attending_label }}" value="no"
                                 {% if guest.is_attending == False %}checked="checked" {% endif %} required> 
                         </label>
                    
-                        <button class="btn waves-effect waves-light" type="submit" value="event rsvp" name="action">
-                            <i class="material-icons">play_for_work</i>
-                        </button>
+                        
                     </div>
                     </form>
                 </div>
