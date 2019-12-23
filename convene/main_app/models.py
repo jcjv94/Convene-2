@@ -11,11 +11,6 @@ from django.utils import timezone
 #       self.name = name
 
 
-
-
-    
-
-
 CATEGORIES = (
     ('outdoors', 'Outdoors'),
     ('entertainment', 'Entertainment'),
@@ -25,7 +20,7 @@ CATEGORIES = (
     ('health', 'Health'),
 )
 
-    
+
 class Event(models.Model):
     title = models.CharField(max_length=250)
     date = models.DateField('event date')
@@ -33,7 +28,8 @@ class Event(models.Model):
     location = models.CharField(max_length=100)
     capacity = ArrayField(models.CharField(max_length=250))
     infolink = models.CharField(max_length=1000)
-    created_by = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
+    created_by = models.ForeignKey(
+        User, null=True, blank=True, on_delete=models.SET_NULL)
     is_attending = models.NullBooleanField(default=None)
     # event = models.ManyToManyField(Guest)
     # guests = models.ForeignKey(Guest)
@@ -53,15 +49,15 @@ class Event(models.Model):
     def guests_attending(self):
         return any(self.guest_set.values_list(is_attending, flat=True))
 
+
 class Guest(models.Model):
-    
+
     user = models.ForeignKey(User, unique=False, on_delete=models.CASCADE)
     # status = models.BooleanField(default=False)
-    is_attending = models.NullBooleanField(default=None)
-    event = models.ForeignKey('Event', on_delete=models.CASCADE)
-    def get_status(self):
-        
-        pass
+    is_attending = models.NullBooleanField(default=False)
+    event = models.ForeignKey(
+        'Event', related_name='guests', default=None, on_delete=models.CASCADE)
+
 
 class Photo(models.Model):
     url = models.CharField(max_length=200)
@@ -72,8 +68,8 @@ class Photo(models.Model):
 
 
 class Comment(models.Model):
-    event = models.ForeignKey(Event, related_name='comments', on_delete=models.CASCADE)
+    event = models.ForeignKey(
+        Event, related_name='comments', on_delete=models.CASCADE)
     user = models.ForeignKey(User, unique=False, on_delete=models.CASCADE)
     text = models.CharField(max_length=250)
     created_date = models.DateTimeField(default=timezone.now)
-
