@@ -15,15 +15,18 @@ import boto3
 
 class EventCreate(CreateView):
     model = Event
-    fields = ['title', 'date', 'time', 'location', 'description', 'capacity', 'infolink', 'category']
+    fields = ['title', 'date', 'time', 'location',
+              'description', 'capacity', 'infolink', 'category']
 
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
+
 def category_index(request, event_category):
     events = Event.objects.filter(category=event_category)
     return render(request, 'events/index.html', {'events': events, 'category': event_category})
+
 
 def events_index(request):
     #   events = Event.objects.filter()
@@ -31,16 +34,19 @@ def events_index(request):
     events = Event.objects.all()
     return render(request, 'events/index.html', {'events': events})
 
+
 def events_detail(request, event_id):
     event = Event.objects.get(id=event_id)
-    guest = Guest.objects.all()
+    # guest = Guest.objects.all()
+    # user = request.user.id
     # Instantiate FeedingForm to be rendered in the template
     post_form = PostForm()
     return render(request, 'events/detail.html', context={
         # Pass the cat and feeding_form as context
-        'event': event, 'guest': guest
+        'event': event
 
     })
+
 
 def events_comment(request, event_id):
     event = Event.objects.get(id=event_id)
@@ -50,17 +56,21 @@ def events_comment(request, event_id):
     new_comment.save()
     return redirect('events_detail', event_id=event_id)
 
+
 def events_rsvp(request, event_id):
     event = Event.objects.get(id=event_id)
+    # event.users.all(user)
+    is_attending = request.POST.__getitem__('is_attending')
     user = request.user
-    if request.method == 'POST':
-            new_guest = Guest(event=event, user=user)
-            new_guest.is_attending = True
-            new_guest.save()
+    new_guest = Guest(event=event, user=user, is_attending=is_attending)
+    # new_guest = Event(users=user)
+    # new_guest.is_attending = True
+    new_guest.save()
     return redirect('events_detail', event_id=event_id)
 
+
 def landing(request):
-    return render(request, 'index.html', {'arr' : ['Outdoors', 'Music', 'Food','Tech','Education']})
+    return render(request, 'index.html', {'arr': ['Outdoors', 'Music', 'Food', 'Tech', 'Education']})
 
 # def add_event(request):
 #     form = PostForm(request.POST)
@@ -70,9 +80,11 @@ def landing(request):
 #         new_event.save()
 #     return render(request, 'events/upload_photo.html', {'form': form})
 
+
 def user(request):
     events = Event.objects.all()
     return render(request, 'user/profile.html', {'contact_name': request.user.first_name, 'events': events})
+
 
 def events(request):
     return render(request, 'events/index.html')
@@ -80,7 +92,7 @@ def events(request):
 
 def signup(request):
     error_message = ''
-    if request.method =='POST':
+    if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
@@ -102,7 +114,8 @@ def add_photo(request, event_id):
     if photo_file:
         s3 = boto3.client('s3')
         # need a unique "key" for S3 / needs image file extension too
-        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+        key = uuid.uuid4().hex[:6] + \
+            photo_file.name[photo_file.name.rfind('.'):]
         # just in case something goes wrong
         try:
             s3.upload_fileobj(photo_file, BUCKET, key)
@@ -123,9 +136,12 @@ def upload_photo(request, event_id):
         'event': event
     })
 
+
 class EventUpdate(UpdateView):
     model = Event
-    fields = ['title', 'date', 'time', 'location', 'description', 'capacity', 'infolink', 'category']
+    fields = ['title', 'date', 'time', 'location',
+              'description', 'capacity', 'infolink', 'category']
+
 
 class EventDelete(DeleteView):
     model = Event
