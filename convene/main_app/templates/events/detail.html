@@ -95,10 +95,6 @@
                         <input class="attending-radio" type="radio" name="is_attending" value="True"
                             {% if guest.is_attending %}checked="checked" {% endif %} required> will attend
                     </label>
-                    <label class="radio-inline">
-                        <input class="attending-radio" type="radio" name="is_attending" value="False"
-                            {% if guest.is_attending == False %}checked="checked" {% endif %} required> will not attend
-                    </label>
                     <button type="submit" value="event rsvp">RSVP</button>
                 </form>
 
@@ -115,10 +111,6 @@
                         <input class="attending-radio" type="radio" name="is_attending" value="True"
                             {% if guest.is_attending %}checked="checked" {% endif %} required> will attend
                     </label>
-                    <label class="radio-inline">
-                        <input class="attending-radio" type="radio" name="is_attending" value="False"
-                            {% if guest.is_attending == False %}checked="checked" {% endif %} required> will not attend
-                    </label>
                     <button type="submit" value="event rsvp">RSVP</button>
                 </form>
                 {%endif%}
@@ -128,13 +120,14 @@
             </div>
 
 
+            {% if event.created_by == user %}
             <a href="{% url 'events_update' event.id %}"><button
                     class="btn-floating btn-large waves-effect waves-light blue left hoverable"><i
                         class="material-icons">edit</i></button></a>
             <a href="{% url 'events_delete' event.id %}"><button
                     class="btn-floating btn-large waves-effect waves-light red right hoverable"><i
                         class="material-icons">delete</i></button></a>
-
+           {% endif %}
 
 
 
