@@ -28,7 +28,7 @@ class Event(models.Model):
     description = models.TextField(max_length=2000)
     capacity = ArrayField(models.CharField(max_length=250))
     infolink = models.CharField(max_length=1000)
-
+    # created_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL)
     category = models.CharField(
         max_length=100,
         choices=CATEGORIES,
@@ -52,3 +52,12 @@ class Comment(models.Model):
     user = models.ForeignKey(User, unique=False, on_delete=models.CASCADE)
     text = models.CharField(max_length=250)
     created_date = models.DateTimeField(default=timezone.now)
+
+class Guest(models.Model):
+    event = models.ForeignKey(Event, related_name='guests', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, unique=False, on_delete=models.CASCADE)
+    status = models.BooleanField(default=False)
+
+    def get_status(self):
+        
+        pass

@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from .forms import PostForm
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-from .models import Event, Photo, User, Comment
+from .models import Event, Photo, User, Comment, Guest
 import uuid
 import boto3
 
@@ -35,6 +35,7 @@ def events_detail(request, event_id):
     event = Event.objects.get(id=event_id)
     # Instantiate FeedingForm to be rendered in the template
     post_form = PostForm()
+    
     return render(request, 'events/detail.html', {
         # Pass the cat and feeding_form as context
         'event': event, 
@@ -46,6 +47,15 @@ def events_comment(request, event_id):
     user = request.user
     new_comment = Comment(event=event, user=user, text=comment_text)
     new_comment.save()
+    return redirect('events_detail', event_id=event_id)
+
+def events_rsvp(request, event_id):
+    event = Event.objects.get(id=event_id)
+    user = request.user
+    new_guest = Guest(event=event, user=user, status=True)
+    print(new_guest.status)
+
+    new_guest.save()
     return redirect('events_detail', event_id=event_id)
 
 def landing(request):
