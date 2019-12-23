@@ -60,7 +60,7 @@
 </div>
 
 <div>
-    <p>Number of RSVPs: {{ event.guests.all|length }}</p>
+    <p>Number of RSVPs: {{ guests.all|length }}</p>
 
     {% for guest in event.guests.all%}
     {% if guest.user == user.username %}
@@ -69,25 +69,25 @@
     {% endif %}
     {% endfor %}
 
-    {% if event.guest.status == False %} 
-    <form action="{% url 'events_rsvp' event.id %}" method="post">
+
+    <form data-toggle="validator" id="invitation-details" class="form-horizontal" action="{% url 'events_rsvp' event.id %}" method="post">
         {%csrf_token%}
+                <label class="radio-inline">
+                    <input class="attending-radio" type="radio" name="{{ attending_label }}" value="yes" {% if guest.is_attending %}checked="checked"{% endif %} required> will attend
+                </label>
+                <label class="radio-inline">
+                    <input class="attending-radio" type="radio" name="{{ attending_label }}" value="no" {% if guest.is_attending == False %}checked="checked"{% endif %} required> will not attend
+                </label>
         <button type="submit" value="event rsvp">RSVP</button>
     </form>
-       {%else%}
+
  
        
-       {%endif%}
-
+   
 </div>
 
 
-{%if event.guests.all|length < 1%}
-<form action="{% url 'events_rsvp' event.id %}" method="post">
-    {%csrf_token%}
-    <button type="submit" value="event rsvp">RSVP</button>
-</form>
-{% endif %}
+
 
 
 <tbody>
