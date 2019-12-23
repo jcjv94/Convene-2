@@ -60,7 +60,9 @@
 </div>
 
 <div>
-    <p>Number of RSVPs: {{ guests.all|length }}</p>
+    <p>Number of RSVPs: {{ guest.all|length }}</p>
+    <!-- <p>Number of RSVPs: {{ guest}}</p> -->
+    
 
     {% for guest in event.guests.all%}
     {% if guest.user == user.username %}
