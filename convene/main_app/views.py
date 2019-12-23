@@ -20,6 +20,8 @@ class EventCreate(CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
+        instance = form.save(commit=False)
+        instance.created_by = self.request.user
         return super().form_valid(form)
 
 
