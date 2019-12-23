@@ -80,7 +80,52 @@
         </div>
     </div>
 
+
     <div>
+
+<div>
+    <p>Number of RSVPs: {{ event.guests.all|length }}</p>
+
+    {%if event.guests.all|length < 1%}
+    <form data-toggle="validator" id="invitation-details" class="form-horizontal"
+        action="{% url 'events_rsvp' event.id %}" method="post">
+        {%csrf_token%}
+        <label class="radio-inline">
+            <input class="attending-radio" type="radio" name="is_attending" value="True"
+                {% if guest.is_attending %}checked="checked" {% endif %} required> will attend
+        </label>
+        <label class="radio-inline">
+            <input class="attending-radio" type="radio" name="is_attending" value="False"
+                {% if guest.is_attending == False %}checked="checked" {% endif %} required> will not attend
+        </label>
+        <button type="submit" value="event rsvp">RSVP</button>
+    </form>
+
+    {%else %}
+    {% for g in event.guests.all%}
+    {% if forloop.last %}
+    {%if g.user == user%}
+    <p> You RSVPd</p>
+    {%else%}
+    <form data-toggle="validator" id="invitation-details" class="form-horizontal"
+        action="{% url 'events_rsvp' event.id %}" method="post">
+        {%csrf_token%}
+        <label class="radio-inline">
+            <input class="attending-radio" type="radio" name="is_attending" value="True"
+                {% if guest.is_attending %}checked="checked" {% endif %} required> will attend
+        </label>
+        <label class="radio-inline">
+            <input class="attending-radio" type="radio" name="is_attending" value="False"
+                {% if guest.is_attending == False %}checked="checked" {% endif %} required> will not attend
+        </label>
+        <button type="submit" value="event rsvp">RSVP</button>
+    </form>
+    {%endif%}
+    {%endif%}
+    {%endfor%}
+    {%endif%}
+</div>
+
 
         <a href="{% url 'events_update' event.id %}"><button
                 class="btn-floating btn-large waves-effect waves-light blue left hoverable"><i
