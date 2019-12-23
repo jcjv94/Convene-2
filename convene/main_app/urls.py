@@ -16,6 +16,7 @@ urlpatterns = [
     path('events/<str:event_category>', views.category_index, name='category_index'),
     path('events/<int:event_id>/', views.events_detail, name='events_detail'),
     path('events/<int:event_id>/add_comment', views.events_comment, name='events_comment'),
+    path('events/<int:event_id>/add_rsvp', views.events_rsvp, name='events_rsvp'),
     path('events/create/', views.EventCreate.as_view(), name='events_create'),
     path('events/<int:pk>/update/', views.EventUpdate.as_view(), name='events_update'),
     path('events/<int:pk>/delete/', views.EventDelete.as_view(), name='events_delete'),
