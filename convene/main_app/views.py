@@ -96,7 +96,7 @@ def signup(request):
 def add_photo(request, event_id):
     event = Event.objects.get(id=event_id)
     S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
-    BUCKET = 'catcollectr'
+    BUCKET = 'catcollector-dt'
     # photo-file will be the "name" attribute on the <input type="file">
     photo_file = request.FILES.get('photo-file', None)
     if photo_file:
