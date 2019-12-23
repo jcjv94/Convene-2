@@ -31,13 +31,15 @@ class Event(models.Model):
     date = models.DateField('event date')
     time = models.TimeField('event time')
     location = models.CharField(max_length=100)
-    description = models.TextField(max_length=2000)
     capacity = ArrayField(models.CharField(max_length=250))
     infolink = models.CharField(max_length=1000)
     created_by = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
     is_attending = models.NullBooleanField(default=None)
     # event = models.ManyToManyField(Guest)
     # guests = models.ForeignKey(Guest)
+
+    description = models.TextField(max_length=2000)
+
     category = models.CharField(
         max_length=100,
         choices=CATEGORIES,

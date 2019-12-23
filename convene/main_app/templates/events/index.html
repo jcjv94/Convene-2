@@ -1,14 +1,62 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<div class="center-align">
+    {% if category %}
+    <h2 style="text-transform: uppercase;">{{category}} Events</h2>
+    {% else%}
+    <h2>All Events</h2>
+    {% endif %}
+    {% for event in events %}
+</div>
 
-{% if category %}
-<h2>{{category}} Events</h2>
-{% else%}
-<h2>All Events</h2>
-{% endif %}
-{% for event in events %}
+
+
 <a href="{% url 'events_detail' event.id %}"></a>
+<div>
+    <div>
+        <!-- <div class="row"> -->
+
+        {% for photo in event.photo_set.all %}
+        <div class="parent-parallax">
+            <div class="parallax-container">
+                <div class="parallax" style="width:100%; transform: scale(.30);">
+                    <!-- <img src="{{photo.url}}" style="opacity: 100; position: ; max-width: auto;"> -->
+                    <img src="{{photo.url}}" style=" opacity: 1;">
+                </div>
+                {% empty %}
+                <div>
+                    <h6 class="center-align" style="color: red;">No Photos Uploaded</h6>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="section white">
+            <div class="row container">
+                <h2 class="header col s12">{{ event.title }}</h2>
+                <p class="grey-text text-darken-3 lighten-3 col s6">Date: {{ event.date }}</p>
+                <p class="grey-text text-darken-3 lighten-3 col s6">Time: {{ event.time }}</p>
+                <p class="grey-text text-darken-3 lighten-3 col s12">Location: {{ event.location }}</p>
+                <p class="grey-text text-darken-3 lighten-3 col s12">Description: {{ event.description }}</p>
+                <a class="btn waves-effect waves-light purple right" href="{% url 'events_detail' event.id %}"><i
+                        class="material-icons center-align">visibility</i></a>
+                <!-- <p>Attendees: {{ event.attendees }}</p>
+                    <p>InfoLink: {{ event.info }}</p> -->
+                <!-- <hr> -->
+            </div>
+            <!-- <div class="card-action">
+                    <a onclick="M.toast({html: 'Saved your spot! })" class="btn">RSVP</a>
+                </div> -->
+        </div>
+        <!-- </div> -->
+    </div>
+</div>
+</a>
+
+
+
+<!-- <a href="{% url 'events_detail' event.id %}"></a>
 <div class="row">
     <div class="col s6">
         <div class="card horizontal hoverable">
@@ -26,22 +74,23 @@
                     <p>Time: {{ event.time }}</p>
                     <p>Location: {{ event.location }}</p>
                     <p class="truncate">Description: {{ event.description }}</p>
-                    <!-- <p>Attendees: {{ event.attendees }}</p>
+                     <p>Attendees: {{ event.attendees }}</p>
                     <p>InfoLink: {{ event.info }}</p> -->
-                    <!-- <hr> -->
-                    <div class="card-action">
-                        <a class="btn waves-effect waves-light blue right" href="{% url 'events_detail' event.id %}"><i
-                                class="material-icons center-align">visibility</i></a>
-                    </div>
-                </div>
-                <!-- <div class="card-action">
+<!-- <hr> -->
+<!-- <div class="card-action"> -->
+<!-- </div> -->
+<!-- </div> -->
+<!-- <div class="card-action">
                     <a onclick="M.toast({html: 'Saved your spot! })" class="btn">RSVP</a>
                 </div> -->
-            </div>
-        </div>
-    </div>
-</div>
+
 </a>
 {% endfor %}
+
+<script>
+    $(document).ready(function () {
+        $('.parallax').parallax();
+    });
+</script>
 
 {% endblock %}
