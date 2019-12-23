@@ -85,7 +85,8 @@ def landing(request):
 
 def user(request):
     events = Event.objects.all()
-    return render(request, 'user/profile.html', {'contact_name': request.user.first_name, 'events': events})
+    guest = Guest.objects.all()
+    return render(request, 'user/profile.html', {'contact_name': request.user.first_name, 'events': events, 'guest': guest})
 
 
 def events(request):
