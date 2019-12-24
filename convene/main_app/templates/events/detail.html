@@ -3,7 +3,7 @@
 
 <div class="container">
     <div class="center-align">
-        <div class="card large z-depth-2">
+        <div class="card z-depth-2">
             <div class="card-image waves-effect waves-block waves-light">
                 {% for photo in event.photo_set.all %}
                 <img src="{{photo.url}}">
@@ -126,6 +126,7 @@
                             </div>
                             <button type="submit" value="event rsvp">RSVP</button>
                         </form>
+
                         {%endif%}
                         {%endif%}
                         {%endfor%}
@@ -134,18 +135,90 @@
                     </div>
                 </div>
 
+            </div>
+        </div>
                 <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4">{{ event.title }}<i
-                            class="material-icons right">close</i></span>
-                    <p>{{ event.description }}</p>
-
-                </div>
+                <span class="card-title grey-text text-darken-4">{{ event.title }}<i
+                        class="material-icons right">close</i></span>
+                <p>{{ event.description }}</p>
             </div>
         </div>
 
 
 
-        <div>
+
+
+
+
+        <!-- <div class="card">
+
+            <div class="card-image waves-effect waves-block waves-light">
+                {% for photo in event.photo_set.all %}
+                <img src="{{photo.url}}">
+                {% empty %}
+                <div>No Photos Uploaded</div>
+                {% endfor %}
+            </div>
+
+
+            <div class="card-content">
+                <span class="card-title activator grey-text text-darken-4">{{ event.title }}<i
+                        class="material-icons right">more_vert</i></span>
+                <br>
+                <div class="row">
+                    <p class="left-align col s4">Date: {{ event.date }}</p>
+                    <p class="center- align col s4">Time: {{ event.time }}</p>
+                    <p class="right-align col s4">Location: {{ event.location }}</p>
+                    <p><a href="#">{{ event.info }}</a></p>
+                </div>
+
+                {% if request.user == event.user %}
+                <div class="card-action">
+                </div>
+                {% else %}
+                {% endif %}
+
+                <hr style="border: 0;
+                height: 1px;
+                background: #333;
+                background-image: -webkit-linear-gradient(left, #ccc, #333, #ccc);
+                background-image: -moz-linear-gradient(left, #ccc, #333, #ccc);
+                background-image: -ms-linear-gradient(left, #ccc, #333, #ccc);
+                background-image: -o-linear-gradient(left, #ccc, #333, #ccc); ">
+
+                <div id="fullRSVP">
+                <div class="row">
+                    <a href="{% url 'events_update' event.id %}" class="col s3 left-align"><button
+                        class="btn-floating btn-medium waves-effect waves-light green left hoverable"><i
+                            class="material-icons">edit</i></button></a>
+
+                <a href="{% url 'events_delete' event.id %}"><button
+                        class="btn-floating btn-medium waves-effect waves-light red right hoverable"><i
+                            class="material-icons">delete</i></button></a>
+
+                            
+                <p class="col center-align">Number of RSVPs: {{ event.guests.all|length }}<a href="#">This is a link</a></p>
+                </div>
+
+                </div>
+
+            </div>
+
+
+
+
+            <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4">{{ event.title }}<i
+                        class="material-icons right">close</i></span>
+                <p>{{ event.description }}</p>
+            </div>
+
+        </div>
+
+
+
+
+        <div> -->
 
 
             <tbody>
