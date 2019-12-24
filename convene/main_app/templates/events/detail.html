@@ -146,10 +146,6 @@
 
 
 
-
-
-
-
         <!-- <div class="card">
 
             <div class="card-image waves-effect waves-block waves-light">
@@ -172,11 +168,51 @@
                     <p><a href="#">{{ event.info }}</a></p>
                 </div>
 
-                {% if request.user == event.user %}
-                <div class="card-action">
-                </div>
-                {% else %}
-                {% endif %}
+
+
+                {%if event.guests.all|length < 1%}
+                <form data-toggle="validator" id="invitation-details" class="form-horizontal"
+                    action="{% url 'events_rsvp' event.id %}" method="post">
+                    {%csrf_token%}
+                    <label class="radio-inline">
+                        <input class="attending-radio" type="radio" name="is_attending" value="True"
+                            {% if guest.is_attending %}checked="checked" {% endif %} required> will attend
+                    </label>
+                    <button type="submit" value="event rsvp">RSVP</button>
+                </form>
+
+                {%else %}
+                {% for g in event.guests.all%}
+                {% if forloop.last %}
+                {%if g.user == user%}
+                <p> You RSVPd</p>
+                {%else%}
+                <form data-toggle="validator" id="invitation-details" class="form-horizontal"
+                    action="{% url 'events_rsvp' event.id %}" method="post">
+                    {%csrf_token%}
+                    <label class="radio-inline">
+                        <input class="attending-radio" type="radio" name="is_attending" value="True"
+                            {% if guest.is_attending %}checked="checked" {% endif %} required> will attend
+                    </label>
+                    <button type="submit" value="event rsvp">RSVP</button>
+                </form>
+                {%endif%}
+                {%endif%}
+                {%endfor%}
+                {%endif%}
+            </div>
+
+
+
+            {% if event.created_by == user %}
+            <a href="{% url 'events_update' event.id %}"><button
+                    class="btn-floating btn-large waves-effect waves-light blue left hoverable"><i
+                        class="material-icons">edit</i></button></a>
+            <a href="{% url 'events_delete' event.id %}"><button
+                    class="btn-floating btn-large waves-effect waves-light red right hoverable"><i
+                        class="material-icons">delete</i></button></a>
+           {% endif %}
+
 
                 <hr style="border: 0;
                 height: 1px;
