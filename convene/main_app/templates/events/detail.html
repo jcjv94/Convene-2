@@ -42,8 +42,8 @@
 
                     <div class="row">
 
-                        <!-- <div class="row"> -->
                         <div class="row">
+                        <!-- <div class="row"> -->
                             <!-- <br> -->
                             <a href="{% url 'events_update' event.id %}" class="col s3 left-align"><button
                                     class="btn-floating btn-medium waves-effect waves-light green left hoverable"><i
@@ -94,8 +94,8 @@
                             {% if forloop.last %}
                             {%if g.user == user%}
                             <p> You RSVPd</p>
-                            {%else%}
                         </div>
+                            {%else%}
                         <!-- </div> -->
                         <form data-toggle="validator" id="invitation-details" class="form-horizontal"
                             action="{% url 'events_rsvp' event.id %}" method="post">
