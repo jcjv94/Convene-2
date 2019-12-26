@@ -4,13 +4,14 @@
 <div class="container">
     <div class="center-align">
         <div class="card z-depth-2">
-            <div class="card-image waves-effect waves-block waves-light">
+            <div class="card-image">
                 {% for photo in event.photo_set.all %}
                 <img src="{{photo.url}}">
                 {% empty %}
                 <div>No Photos Uploaded</div>
                 {% endfor %}
             </div>
+            <!-- <div> -->
             <div class="card-content">
                 <div class="row">
                     <span class="card-title activator grey-text text-darken-4">
@@ -162,6 +163,8 @@
                     </div>
                 </div>
             </div>
+
+            <!-- //////////// -->
             <div class="card-reveal">
                 <span class="card-title grey-text text-darken-4">{{ event.title }}<i
                         class="material-icons right">close</i></span>
@@ -309,6 +312,7 @@
     </form> -->
 
     </div>
+</div>
 
     <script>
         $(document).ready(function () {
