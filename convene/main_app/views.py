@@ -39,12 +39,8 @@ def events_index(request):
 
 def events_detail(request, event_id):
     event = Event.objects.get(id=event_id)
-    # guest = Guest.objects.all()
-    # user = request.user.id
-    # Instantiate FeedingForm to be rendered in the template
     post_form = PostForm()
     return render(request, 'events/detail.html', context={
-        # Pass the cat and feeding_form as context
         'event': event
 
     })
