@@ -4,17 +4,20 @@
 <div class="container">
     <div class="center-align">
         <div class="card z-depth-2">
+<<<<<<< HEAD
 
             <div class="card-image">
             <div class="card-image waves-effect waves-block waves-light">
 
+=======
+            <div class="card-image waves-effect waves-block waves-light">
+>>>>>>> parent of d34c294... completed detail page functionality, with some styling
                 {% for photo in event.photo_set.all %}
                 <img src="{{photo.url}}">
                 {% empty %}
                 <div>No Photos Uploaded</div>
                 {% endfor %}
             </div>
-            <!-- <div> -->
             <div class="card-content">
                 <div class="row">
                     <span class="card-title activator grey-text text-darken-4">
@@ -229,8 +232,12 @@
                     </div>
                 </div>
             </div>
+<<<<<<< HEAD
         </div>
                 <div class="card-reveal">
+=======
+            <div class="card-reveal">
+>>>>>>> parent of d34c294... completed detail page functionality, with some styling
                 <span class="card-title grey-text text-darken-4">{{ event.title }}<i
                         class="material-icons right">close</i></span>
                 <p>{{ event.description }}</p>
@@ -464,7 +471,6 @@
     </form> -->
 
     </div>
-</div>
 
 
         <script>
