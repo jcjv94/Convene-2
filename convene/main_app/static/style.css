@@ -6,3 +6,6 @@
     border: solid black 2px;
 }
 
+.logo_outdoor:hover{
+    background-color: aliceblue;
+}

@@ -1,13 +1,25 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Delete Event</h1>
+<div class="container">
+<h3 class="center-align">Delete Event</h3>
 
-<h4>Are you sure you want to delete <span class="teal-text">{{ object.title }}</span>?</h4>
-
+<h4 class="center-align">Are you sure you want to delete: <span class="teal-text">{{ object.title }}</span>?</h4>
+<br>
+<hr style="border: 0;
+height: 1px;
+background: #333;
+background-image: -webkit-linear-gradient(left, #ccc, #333, #ccc);
+background-image: -moz-linear-gradient(left, #ccc, #333, #ccc);
+background-image: -ms-linear-gradient(left, #ccc, #333, #ccc);
+background-image: -o-linear-gradient(left, #ccc, #333, #ccc); ">
+<br>
 <form action="" method="POST">
     {% csrf_token %}
-    <input type="submit" value="Yes - Delete!" class="btn">
-    <a href="{% url 'events_detail' event.id %}" class="btn red">Cancel</a>
+    <div class="row">
+   <div class="col s6 center-align"> <input type="submit" value="Yes - Delete!" class="btn"></div>
+   <div class="col s6 center-align"> <a href="{% url 'events_detail' event.id %}" class="btn red">Cancel</a></div>
+</div>
 </form>
+</div>
 {% endblock %}
