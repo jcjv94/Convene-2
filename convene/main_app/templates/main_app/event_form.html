@@ -1,6 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content%}
+<div>
+
+<div class="center-align" >
+{% if object %}
+<h3>Edit Event<span class="teal-text">{{object.title}}</span></h3>
+{% else %}
+<h3 class="center-align">Add Event</h3>
+{% endif %}
+</div>
 
 <div class="center-align">
 {% if object %}
@@ -11,26 +20,19 @@
 </div>
 
 
+<div >
 
-<div class=" container row">
-    <form action='' method='post'>
-
+    <form action='' method='post' class="container">
         {%csrf_token%}
 
-
-        {% if object %}
-        <h1>Edit <span class="teal-text">{{object.title}}</span></h1>
-        {% else %}
-        <h1 class="center-align">Add Event</h1>
-        {% endif %}
-        <form action='' method='post'>
-            {%csrf_token%}
-
-            <table>
-                {{form.as_table}}
-            </table>
-            <input type="submit" value="Add Event" />
-        </form>
+        <table class="container">
+            {{form.as_table}}
+        </table>
+        <div class="center-align">
+            <button type="submit" value="Add Event" class="waves-effect waves-green btn hoverable">Add Event<i
+                    class="material-icons right">event</i></button>
+        </div>
+    </form>
 </div>
 
 <script>
@@ -51,4 +53,5 @@
     var selectEl = document.getElementById('id_category');
     M.FormSelect.init(selectEl);
 </script>
+</div>
 {% endblock %}

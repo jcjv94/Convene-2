@@ -1,0 +1,11 @@
+.card-panel {
+    border-radius: 11px;
+}
+
+#profhead{
+    border: solid black 2px;
+}
+
+.logo_outdoor:hover{
+    background-color: aliceblue;
+}

@@ -20,14 +20,21 @@ CATEGORIES = (
     ('health', 'Health'),
 )
 
+
 class Event(models.Model):
     title = models.CharField(max_length=250)
     date = models.DateField('event date')
     time = models.TimeField('event time')
     location = models.CharField(max_length=100)
-    description = models.TextField(max_length=2000)
     capacity = ArrayField(models.CharField(max_length=250))
     infolink = models.CharField(max_length=1000)
+    created_by = models.ForeignKey(
+        User, null=True, blank=True, on_delete=models.SET_NULL)
+    is_attending = models.NullBooleanField(default=None)
+    # event = models.ManyToManyField(Guest)
+    # guests = models.ForeignKey(Guest)
+
+    description = models.TextField(max_length=2000)
 
     category = models.CharField(
         max_length=100,
@@ -37,6 +44,19 @@ class Event(models.Model):
 
     def get_absolute_url(self):
         return reverse('upload_photo', kwargs={'event_id': self.id})
+
+    @property
+    def guests_attending(self):
+        return any(self.guest_set.values_list(is_attending, flat=True))
+
+
+class Guest(models.Model):
+
+    user = models.ForeignKey(User, unique=False, on_delete=models.CASCADE)
+    # status = models.BooleanField(default=False)
+    is_attending = models.NullBooleanField(default=False)
+    event = models.ForeignKey(
+        'Event', related_name='guests', default=None, on_delete=models.CASCADE)
 
 
 class Photo(models.Model):
@@ -48,7 +68,8 @@ class Photo(models.Model):
 
 
 class Comment(models.Model):
-    event = models.ForeignKey(Event, related_name='comments', on_delete=models.CASCADE)
+    event = models.ForeignKey(
+        Event, related_name='comments', on_delete=models.CASCADE)
     user = models.ForeignKey(User, unique=False, on_delete=models.CASCADE)
     text = models.CharField(max_length=250)
     created_date = models.DateTimeField(default=timezone.now)
