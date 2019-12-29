@@ -34,16 +34,18 @@
 
         <div class="section white">
             <div class="row container">
+                <div class="container">
                 <h2 class="header col s12">{{ event.title }}</h2>
-                <p class="grey-text text-darken-3 lighten-3 col s6">Date: {{ event.date }}</p>
-                <p class="grey-text text-darken-3 lighten-3 col s6">Time: {{ event.time }}</p>
-                <p class="grey-text text-darken-3 lighten-3 col s12">Location: {{ event.location }}</p>
+                <p class="grey-text text-darken-3 lighten-3 col s4">Date: {{ event.date }}</p>
+                <p class="grey-text text-darken-3 lighten-3 col s4">Time: {{ event.time }}</p>
+                <p class="grey-text text-darken-3 lighten-3 col s4">Location: {{ event.location }}</p>
                 <p class="grey-text text-darken-3 lighten-3 col s12">Description: {{ event.description }}</p>
                 <a class="btn waves-effect waves-light purple right" href="{% url 'events_detail' event.id %}"><i
                         class="material-icons center-align">visibility</i></a>
                 <!-- <p>Attendees: {{ event.attendees }}</p>
                     <p>InfoLink: {{ event.info }}</p> -->
                 <!-- <hr> -->
+            </div>
             </div>
             <!-- <div class="card-action">
                     <a onclick="M.toast({html: 'Saved your spot! })" class="btn">RSVP</a>
