@@ -16,7 +16,6 @@
         <hr>
 
         {% for g in guest%}
-        <!-- <p> it is {{g.is_attending}} that I am attending event {{g.event.id }}</p>  -->
         {%for e in events%}
         {%if g.is_attending == True and g.event.id == e.id and g.user == user%}
 
@@ -28,7 +27,6 @@
                         <p>Date: {{ e.date }}</p>
                         <p>Time: {{ e.time }}</p>
                         <p>Location: {{ e.location }}</p>
-                        <!-- <p class="truncate">Description: {{ event.description }}</p> -->
                     </div>
                     <div class="card-action">
                         <a href="{{e.infolink}}" class="btn-floating btn-med waves-effect waves-light blue"><i
