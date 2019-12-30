@@ -119,12 +119,12 @@
                                             <input class="attending-radio with-gap" name="is_attending" type="radio"
                                                 value="True" {% if guest.is_attending %}checked="checked" {% endif %}
                                                 required>
-                                            <span>Attending</span>
+                                            <span >Attending</span>
                                         </label>
                                     </p>
 
                                     <p class="col s2">
-                                        <button class="btn btn-small waves-effect waves-light blue" type="submit"
+                                        <button class="btn btn-small btn tooltipped" data-position="bottom" data-tooltip="Click to Confirm RSVP" type="submit"
                                             value="event rsvp" name="action">
 
                                             <i class="material-icons">play_for_work</i>
@@ -140,7 +140,7 @@
                             <p> You RSVPd</p>
                             {%else%}
                             <form data-toggle="validator" id="invitation-details" class="form-horizontal"
-                                action="{% url 'events_rsvp' event.id %}" method="post">
+                                action="{% url 'events_rsvp' event.id %}" method="post" style="opacity: 0;">
                                 {%csrf_token%}
                                 <label class="radio-inline">
                                     <input class="attending-radio" type="radio" name="is_attending" value="True"
@@ -308,6 +308,8 @@
     $(document).ready(function () {
         $('input#input_text, textarea#textarea2').characterCounter();
     });
+
+    
 </script>
 
 {% endblock %}
