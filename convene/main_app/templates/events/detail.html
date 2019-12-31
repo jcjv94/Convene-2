@@ -34,7 +34,7 @@
 
                 </div>
 
-                <div class="row">
+                <div class="row" style= "font-size:1.5rem">
                     <p class="left-align col s4">Date: {{ event.date }}</p>
                     <p class="center- align col s4">Time: {{ event.time }}</p>
                     <p class="right-align col s4">Location: {{ event.location }}</p>
@@ -98,7 +98,7 @@
                         {% endif %}
                         <!-- </div> -->
 
-                        <div>
+                        <div style= "font-size: 1.2rem">
                             <p class="col center-align">Number of RSVPs: {{ event.guests.all|length }}</p>
 
                             {%if event.guests.all|length < 1%}
