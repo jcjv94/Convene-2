@@ -3,49 +3,49 @@
 {% block content%}
 <div>
 
-<div class="center-align" >
-{% if object %}
-<h3>Edit Event: <span class="teal-text">{{object.title}}</span></h3>
-{% else %}
-<h3 class="center-align">Add Event</h3>
-{% endif %}
-</div>
+    <div class="center-align">
+        {% if object %}
+        <h3>Edit Event: <span class="teal-text">{{object.title}}</span></h3>
+        {% else %}
+        <h3 class="center-align">Add Event</h3>
+        {% endif %}
+    </div>
 
 
 
-<div >
+    <div>
 
-    <form action='' method='post' class="container">
-        {%csrf_token%}
+        <form action='' method='post' class="container">
+            {%csrf_token%}
 
-        <table class="container" style="font-size: medium;">
-            {{form.as_table}}
-        </table>
-        <br>
-        <div class="center-align">
-            <button type="submit" value="Add Event" class="waves-effect waves-green btn hoverable">Add Event<i
-                    class="material-icons right">event</i></button>
-        </div>
-    </form>
-</div>
+            <table class="container" style="font-size: medium;">
+                {{form.as_table}}
+            </table>
+            <br>
+            <div class="center-align">
+                <button type="submit" value="Add Event" class="waves-effect waves-green btn hoverable">Add Event<i
+                        class="material-icons right">event</i></button>
+            </div>
+        </form>
+    </div>
 
-<script>
-    var dateEl = document.getElementById('id_date');
-    M.Datepicker.init(dateEl, {
-        format: 'yyyy-mm-dd',
-        defaultDate: new Date(),
-        setDefaultDate: true,
-        autoClose: true
-    });
-    var timeEl = document.getElementById('id_time');
-    M.Timepicker.init(timeEl, {
-        format: "HH:ii:SS",
-        default: 'now',
-        setDefaultDate: true,
-        autoClose: true
-    });
-    var selectEl = document.getElementById('id_category');
-    M.FormSelect.init(selectEl);
-</script>
+    <script>
+        var dateEl = document.getElementById('id_date');
+        M.Datepicker.init(dateEl, {
+            format: 'yyyy-mm-dd',
+            defaultDate: new Date(),
+            setDefaultDate: true,
+            autoClose: true
+        });
+        var timeEl = document.getElementById('id_time');
+        M.Timepicker.init(timeEl, {
+            format: "HH:ii:SS",
+            default: 'now',
+            setDefaultDate: true,
+            autoClose: true
+        });
+        var selectEl = document.getElementById('id_category');
+        M.FormSelect.init(selectEl);
+    </script>
 </div>
 {% endblock %}
