@@ -104,7 +104,10 @@
                                 <button type="submit" value="event rsvp">RSVP</button>
                             </form>
 
-                            {%endif%} {%endif%} {%endfor%} {%endif%}
+                            {%endif%} 
+                            {%endif%} 
+                            {%endfor%} 
+                            {%endif%}
                         </div>
                     </div>
                 </div>
@@ -120,8 +123,10 @@
                         <div style="font-size: 1.5rem">
                             <tr>
                                 <td>{{ comment.text }}</td><br>
+                                <div style="font-size: 1rem"> 
                                 <td>posted by {{ comment.user }}</td>
                                 <td>on {{ comment.created_date }}</td>
+                               </div>
                             </tr>
                         </div>
 
