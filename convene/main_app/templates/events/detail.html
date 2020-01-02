@@ -119,8 +119,9 @@
                 <hr />
                 <div id="fullCmnts">
                     <tbody>
+                        <h3>Comments</h3>
                         {% for comment in event.comments.all %}
-                        <div style="font-size: 1.5rem">
+                        <div style="font-size: 1.5rem; border-top: 1px solid;">
                             <tr>
                                 <td>{{ comment.text }}</td><br>
                                 <div style="font-size: 1rem"> 
@@ -141,7 +142,7 @@
             <form action="{% url 'events_comment' event.id %}" method="POST">
                 {%csrf_token%}
                 <div class="input-field col s12">
-                    <textarea type="textarea" name="comment" class="materialize-textarea" data-length="250"></textarea>
+                    <textarea type="textarea" name="comment" class="materialize-textarea" style="border: 1px solid; background-color:white;" data-length="250"></textarea>
                     <label for="textarea2">Comment</label>
                     <div class="center-align">
                         <button class="btn waves-effect waves-light" type="submit" name="action" value="event comment">
