@@ -22,6 +22,7 @@ class EventCreate(CreateView):
         form.instance.user = self.request.user
         instance = form.save(commit=False)
         instance.created_by = self.request.user
+        print(form, 'this is from created')
         return super().form_valid(form)
 
 
@@ -32,6 +33,7 @@ def category_index(request, event_category):
 
 def events_index(request):
     events = Event.objects.all()
+    print(events, '---- this is events')
     return render(request, 'events/index.html', {'events': events})
 
 
@@ -69,6 +71,9 @@ def landing(request):
 def user(request):
     events = Event.objects.all()
     guest = Guest.objects.all()
+    print(guest, 'this is guest')
+    print(events, 'this is event')
+    print('hit this route')
     return render(request, 'user/profile.html', {})
 
 
@@ -94,7 +99,7 @@ def signup(request):
 def add_photo(request, event_id):
     event = Event.objects.get(id=event_id)
     S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
-    BUCKET = 'catcollector-dt'
+    BUCKET = 'catcollectr'
     photo_file = request.FILES.get('photo-file', None)
     if photo_file:
         s3 = boto3.client('s3')
