@@ -6,10 +6,6 @@ from django.utils import timezone
 
 # Create your models here.
 
-# class Category:
-#     def __init__(self, name):
-#       self.name = name
-
 
 CATEGORIES = (
     ('outdoors', 'Outdoors'),
@@ -31,8 +27,6 @@ class Event(models.Model):
     created_by = models.ForeignKey(
         User, null=True, blank=True, on_delete=models.SET_NULL)
     is_attending = models.NullBooleanField(default=None)
-    # event = models.ManyToManyField(Guest)
-    # guests = models.ForeignKey(Guest)
 
     description = models.TextField(max_length=2000)
 
@@ -53,7 +47,6 @@ class Event(models.Model):
 class Guest(models.Model):
 
     user = models.ForeignKey(User, unique=False, on_delete=models.CASCADE)
-    # status = models.BooleanField(default=False)
     is_attending = models.NullBooleanField(default=False)
     event = models.ForeignKey(
         'Event', related_name='guests', default=None, on_delete=models.CASCADE)

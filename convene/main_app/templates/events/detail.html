@@ -1,5 +1,4 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 
 <div class="container">
     <div class="center-align">
@@ -7,44 +6,30 @@
             <div class="container">
                 <div class="card-image">
                     {% for photo in event.photo_set.all %}
-                    <img src="{{photo.url}}">
+                    <img src="{{photo.url}}" />
                     {% empty %}
                     <div>No Photos Uploaded</div>
                     {% endfor %}
                 </div>
             </div>
-            <!-- <div> -->
             <div class="card-content">
                 <div class="row">
                     <span class="card-title activator grey-text text-darken-4">
-                        <!-- <button class=" btn-floating btn-small waves-effect waves-light yellow"> -->
-                        <!-- <i class="material-icons right">expand_less</i> -->
-                        <!-- </button> -->
                         <i class="material-icons">expand_less</i>
-                        <br>
-                        <div>{{ event.title }}
-                        </div>
-
-
+                        <br />
+                        <div>{{ event.title }}</div>
                     </span>
-
-                    <!-- <div>
-                        </div> -->
-
-
                 </div>
 
-                <div class="row">
+                <div class="row" style="font-size:1.5rem">
                     <p class="left-align col s4">Date: {{ event.date }}</p>
                     <p class="center- align col s4">Time: {{ event.time }}</p>
                     <p class="right-align col s4">Location: {{ event.location }}</p>
                     <p><a href="#">{{ event.info }}</a></p>
                 </div>
                 {% if request.user == event.user %}
-                <div class="card-action">
-                </div>
-                {% else %}
-                {% endif %}
+                <div class="card-action"></div>
+                {% else %} {% endif %}
 
                 <hr style="border: 0;
                 height: 1px;
@@ -52,261 +37,127 @@
                 background-image: -webkit-linear-gradient(left, #ccc, #333, #ccc);
                 background-image: -moz-linear-gradient(left, #ccc, #333, #ccc);
                 background-image: -ms-linear-gradient(left, #ccc, #333, #ccc);
-                background-image: -o-linear-gradient(left, #ccc, #333, #ccc); ">
+                background-image: -o-linear-gradient(left, #ccc, #333, #ccc); " />
 
-                <!-- <div id="fullRSVP" class="row">
-                    <div class="col s6">
-                        <p>Number of RSVPs: {{ guest.all|length }}</p>
-                        <p>Number of RSVPs: {{ guest}}</p>
-                        {% for guest in event.guests.all%}
-                        {% if guest.user == user.username %}
-                        <p>You are RSVP'd to attend this event</p>
-                        {% else %}
-                        {% endif %}
-                        {% endfor %}
-                    </div>
-                    <div class="right-align">
-                        <form data-toggle="validator" id="invitation-details" class="form-horizontal"
-                            action="{% url 'events_rsvp' event.id %}" method="post">
-                            {%csrf_token%}
-                            <button class="btn waves-effect waves-light" type="submit" value="event rsvp" name="action">
-                                <i class="material-icons">play_for_work</i>
-                            </button>
-                            <br>
-                            <label class="radio-inline">
-                                <input class="attending-radio" type="radio" name="{{ attending_label }}" value="yes"
-                                    {% if guest.is_attending %}checked="checked" {% endif %} required> Click here to
-                                RSVP
-                            </label>
-                            <label class="radio-inline">
-                                <input class="attending-radio" type="radio" name="{{ attending_label }}" value="no"
-                                    {% if guest.is_attending == False %}checked="checked" {% endif %} required>
-                            </label>
-                    </div>
-                    </form>
-                </div>
-            </div> -->
                 <div id="fullRSVP">
                     <div class="row">
                         {% if event.created_by == user %}
                         <a href="{% url 'events_update' event.id %}" class="col s3 left-align"><button
-                                class="btn-floating btn-medium waves-effect waves-light green left hoverable"><i
-                                    class="material-icons">edit</i></button></a>
+                                class="btn-floating btn-medium waves-effect waves-light green left hoverable">
+                                <i class="material-icons">edit</i>
+                            </button></a>
                         <a href="{% url 'events_delete' event.id %}"><button
-                                class="btn-floating btn-medium waves-effect waves-light red right hoverable"><i
-                                    class="material-icons">delete</i></button></a>
+                                class="btn-floating btn-medium waves-effect waves-light red right hoverable">
+                                <i class="material-icons">delete</i>
+                            </button></a>
                         {% endif %}
-                        <!-- </div> -->
 
-                        <div>
-                            <p class="col center-align">Number of RSVPs: {{ event.guests.all|length }}</p>
+                        <div style="font-size: 1.2rem">
+                            <p class="col center-align">
+                                Number of RSVPs: {{ event.guests.all|length }}
+                            </p>
 
                             {%if event.guests.all|length < 1%}
                             <form data-toggle="validator" id="invitation-details" class="form-horizontal"
                                 action="{% url 'events_rsvp' event.id %}" method="post">
                                 {%csrf_token%}
-                                <!-- figure out closing div -->
                                 <div class="right-align col s6">
-                                    <!-- <p class="col s4">
-                          <label>
-                            <input class="attending-radio with-gap" type="radio" name="is_attending" value="True"
-                                {% if guest.is_attending %}checked="checked" {% endif %} required> Attending
-                          </label>
-                        </p> -->
-
                                     <p class="col s4">
                                         <label>
                                             <input class="attending-radio with-gap" name="is_attending" type="radio"
-                                                value="True" {% if guest.is_attending %}checked="checked" {% endif %}
-                                                required>
+                                                value="True" {%
+                        if
+                        guest.is_attending
+                        %}checked="checked" {%
+                        endif
+                        %} required />
                                             <span>Attending</span>
                                         </label>
                                     </p>
 
                                     <p class="col s2">
-                                        <button class="btn btn-small waves-effect waves-light blue" type="submit"
-                                            value="event rsvp" name="action">
-
+                                        <button class="btn btn-small btn tooltipped" data-position="bottom"
+                                            data-tooltip="Click to Confirm RSVP" type="submit" value="event rsvp"
+                                            name="action">
                                             <i class="material-icons">play_for_work</i>
                                         </button>
                                     </p>
                                 </div>
                             </form>
 
-                            {%else %}
-                            {% for g in event.guests.all%}
-                            {% if forloop.last %}
+                            {%else %} {% for g in event.guests.all%} {% if forloop.last %}
                             {%if g.user == user%}
-                            <p> You RSVPd</p>
+                            <p>You RSVPd</p>
                             {%else%}
                             <form data-toggle="validator" id="invitation-details" class="form-horizontal"
-                                action="{% url 'events_rsvp' event.id %}" method="post">
+                                action="{% url 'events_rsvp' event.id %}" method="post" style="opacity: 0;">
                                 {%csrf_token%}
                                 <label class="radio-inline">
-                                    <input class="attending-radio" type="radio" name="is_attending" value="True"
-                                        {% if guest.is_attending %}checked="checked" {% endif %} required> will
-                                    attend
+                                    <input class="attending-radio" type="radio" name="is_attending" value="True" {%
+                    if
+                    guest.is_attending
+                    %}checked="checked" {%
+                    endif
+                    %} required />
+                                    will attend
                                 </label>
                                 <button type="submit" value="event rsvp">RSVP</button>
                             </form>
 
-                            {%endif%}
-                            {%endif%}
-                            {%endfor%}
+                            {%endif%} 
+                            {%endif%} 
+                            {%endfor%} 
                             {%endif%}
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- //////////// -->
             <div class="card-reveal">
                 <span class="card-title grey-text text-darken-4">{{ event.title }}<i
                         class="material-icons right">close</i></span>
                 <p>{{ event.description }}</p>
-                <hr>
+                <hr />
                 <div id="fullCmnts">
                     <tbody>
                         {% for comment in event.comments.all %}
-                        <div>
+                        <div style="font-size: 1.5rem">
                             <tr>
-                                <td>{{ comment.text }}</td>
-                                <td>{{ comment.user }}</td>
-                                <td>{{ comment.created_date }}</td>
+                                <td>{{ comment.text }}</td><br>
+                                <div style="font-size: 1rem"> 
+                                <td>posted by {{ comment.user }}</td>
+                                <td>on {{ comment.created_date }}</td>
+                               </div>
                             </tr>
                         </div>
+
                         {% endfor %}
                     </tbody>
                 </div>
             </div>
 
-
-            <!-- <div>
-            <div id="fullRSVP">
-            <div class="row">
-                {% if event.created_by == user %}
-                <a href="{% url 'events_update' event.id %}" class="col s3 left-align"><button
-                        class="btn-floating btn-medium waves-effect waves-light green left hoverable"><i
-                            class="material-icons">edit</i></button></a>
-                <a href="{% url 'events_delete' event.id %}"><button
-                        class="btn-floating btn-medium waves-effect waves-light red right hoverable"><i
-                            class="material-icons">delete</i></button></a>
-               {% endif %} -->
-            <!-- </div> -->
-
-            <!-- <div>
-                <p class = "col center-align">Number of RSVPs: {{ event.guests.all|length }}</p>
-                {%if event.guests.all|length < 1%} -->
-            <!-- <form data-toggle="validator" id="invitation-details" class="form-horizontal"
-                    action="{% url 'events_rsvp' event.id %}" method="post">
-                      {%csrf_token%} -->
-            <!-- figure out closing div -->
-            <!-- <div class = "right-align col s6"> -->
-            <!-- <p class="col s4">
-                      <label>
-                        <input class="attending-radio with-gap" type="radio" name="is_attending" value="True"
-                            {% if guest.is_attending %}checked="checked" {% endif %} required> Attending
-                      </label>
-                    </p> -->
-
-            <!-- <p class="col s4">
-                        <label>
-                          <input class="attending-radio with-gap" name="is_attending" type="radio" value="True" 
-                          {% if guest.is_attending %}checked="checked" {% endif %} required>
-                          <span>Attending</span>
-                        </label>
-                      </p>
-                    <p class="col s2">
-                        <button class="btn btn-small waves-effect waves-light blue" type="submit" value="event rsvp" name="action">
-                            <i class="material-icons">play_for_work</i>
-                        </button>
-                    </p>
-                    </div> 
-                  </form>
-                {%else %}
-                {% for g in event.guests.all%}
-                {% if forloop.last %}
-                {%if g.user == user%}
-                <p> You RSVPd</p>
-                {%else%}
-                <form data-toggle="validator" id="invitation-details" class="form-horizontal"
-                    action="{% url 'events_rsvp' event.id %}" method="post">
-                    {%csrf_token%}
-                    <label class="radio-inline">
-                        <input class="attending-radio" type="radio" name="is_attending" value="True"
-                            {% if guest.is_attending %}checked="checked" {% endif %} required> will attend
-                    </label>
-                    <button type="submit" value="event rsvp">RSVP</button>
-                </form>
-                {%endif%}
-                {%endif%}
-                {%endfor%}
-                {%endif%}
-            </div>
-        </div> -->
-            <!-- </div> -->
-            <!-- <div class="row">
-                {% if event.created_by == user %}
-                <a href="{% url 'events_update' event.id %}" class="col s3 left-align"><button
-                        class="btn-floating btn-medium waves-effect waves-light green left hoverable"><i
-                            class="material-icons">edit</i></button></a>
-                <a href="{% url 'events_delete' event.id %}"><button
-                        class="btn-floating btn-medium waves-effect waves-light red right hoverable"><i
-                            class="material-icons">delete</i></button></a>
-               {% endif %}
-                </div> -->
-
-
-
-
         </div>
-
-        <!-- <div id="fullCmnts">
-            <tbody>
-                {% for comment in event.comments.all %}
-                <div>
-                    <tr>
-                        <td>{{ comment.text }}</td>
-                        <td>{{ comment.user }}</td>
-                        <td>{{ comment.created_date }}</td>
-                    </tr>
-                </div>
-                {% endfor %}
-            </tbody>
-        </div> -->
-
 
         <div class="row">
             <form action="{% url 'events_comment' event.id %}" method="POST">
                 {%csrf_token%}
                 <div class="input-field col s12">
-                    <textarea type='textarea' name="comment" class="materialize-textarea" data-length="250"></textarea>
+                    <textarea type="textarea" name="comment" class="materialize-textarea" data-length="250"></textarea>
                     <label for="textarea2">Comment</label>
                     <div class="center-align">
-                        <button class="btn waves-effect waves-light" type="submit" name="action"
-                            value="event comment">Add
-                            Comment
+                        <button class="btn waves-effect waves-light" type="submit" name="action" value="event comment">
+                            Add Comment
                             <i class="material-icons right">comment</i>
                         </button>
                     </div>
                 </div>
             </form>
         </div>
-
-
-
-        <!-- <form action="{% url 'events_comment' event.id %}" method="post">
-        
-        <textarea type='textarea' name="comment" class=""></textarea>
-        <button type="submit" value="event comment">Comment</button>
-    </form> -->
-
     </div>
 </div>
 
 <script>
     $(document).ready(function () {
-        $('input#input_text, textarea#textarea2').characterCounter();
+        $("input#input_text, textarea#textarea2").characterCounter();
     });
 </script>
 

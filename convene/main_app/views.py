@@ -16,7 +16,7 @@ import boto3
 class EventCreate(CreateView):
     model = Event
     fields = ['title', 'date', 'time', 'location',
-              'description', 'capacity', 'infolink', 'category']
+              'capacity', 'infolink', 'category', 'description', ]
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -31,8 +31,6 @@ def category_index(request, event_category):
 
 
 def events_index(request):
-    #   events = Event.objects.filter()
-    #   events = request.user.event_set.all()
     events = Event.objects.all()
     return render(request, 'events/index.html', {'events': events})
 
@@ -57,26 +55,15 @@ def events_comment(request, event_id):
 
 def events_rsvp(request, event_id):
     event = Event.objects.get(id=event_id)
-    # event.users.all(user)
     is_attending = request.POST.__getitem__('is_attending')
     user = request.user
     new_guest = Guest(event=event, user=user, is_attending=is_attending)
-    # new_guest = Event(users=user)
-    # new_guest.is_attending = True
     new_guest.save()
     return redirect('events_detail', event_id=event_id)
 
 
 def landing(request):
     return render(request, 'index.html', {'arr': ['Outdoors', 'Music', 'Food', 'Tech', 'Education']})
-
-# def add_event(request):
-#     form = PostForm(request.POST)
-#     print(form)
-#     if form.is_valid():
-#         new_event = form.save(commit=False)
-#         new_event.save()
-#     return render(request, 'events/upload_photo.html', {'form': form})
 
 
 def user(request):
@@ -108,19 +95,14 @@ def add_photo(request, event_id):
     event = Event.objects.get(id=event_id)
     S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
     BUCKET = 'catcollector-dt'
-    # photo-file will be the "name" attribute on the <input type="file">
     photo_file = request.FILES.get('photo-file', None)
     if photo_file:
         s3 = boto3.client('s3')
-        # need a unique "key" for S3 / needs image file extension too
         key = uuid.uuid4().hex[:6] + \
             photo_file.name[photo_file.name.rfind('.'):]
-        # just in case something goes wrong
         try:
             s3.upload_fileobj(photo_file, BUCKET, key)
-            # build the full url string
             url = f"{S3_BASE_URL}{BUCKET}/{key}"
-            # we can assign to cat_id or cat (if you have a cat object)
             photo = Photo(url=url, event_id=event_id)
             photo.save()
         except:
@@ -131,7 +113,6 @@ def add_photo(request, event_id):
 def upload_photo(request, event_id):
     event = Event.objects.get(id=event_id)
     return render(request, 'events/upload_photo.html', {
-        # Pass the cat and feeding_form as context
         'event': event
     })
 
