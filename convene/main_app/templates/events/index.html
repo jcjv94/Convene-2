@@ -4,11 +4,30 @@
 <div class="center-align">
     {% if category %}
     <h2 style="text-transform: uppercase;">{{category}} Events</h2>
+
+    <hr style="border: 0;
+                height: 1px;
+                background: #333;
+                background-image: -webkit-linear-gradient(left, #ccc, #333, #ccc);
+                background-image: -moz-linear-gradient(left, #ccc, #333, #ccc);
+                background-image: -ms-linear-gradient(left, #ccc, #333, #ccc);
+                background-image: -o-linear-gradient(left, #ccc, #333, #ccc); 
+                width: 325px;" />
+                <br>
+                
     {% else%}
     <h2>All Events</h2>
     {% endif %}
-    {% for event in events %}
+    {%if events.all|length < 1%}
+    <div class="container" style="border: 1px solid red; border-radius: 20px; width: fit-content;">
+    <h3 style="padding: 0 45px 10px 45px;">No Events In This Category Yet.. <br>Add One, And <span style="text-decoration: underline;">Let's Get Together!</span> </h3>
 </div>
+    {%endif%}
+    {% for event in events %}
+    
+</div>
+
+
 <a href="{% url 'events_detail' event.id %}"></a>
 <div>
     <div>
